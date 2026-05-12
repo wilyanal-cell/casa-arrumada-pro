@@ -7,6 +7,7 @@
 <title>Casa Arrumada Pro</title>
 
 <style>
+
 :root{
     --primary:#4f46e5;
     --secondary:#6366f1;
@@ -44,8 +45,8 @@ body{
     width:100%;
     max-width:380px;
 
-    background:rgba(255,255,255,0.75);
-    backdrop-filter:blur(12px);
+    background:rgba(255,255,255,0.8);
+    backdrop-filter:blur(10px);
 
     border-radius:25px;
 
@@ -58,14 +59,14 @@ body{
 
 .login-card h1{
     text-align:center;
-    margin-bottom:10px;
     color:var(--primary);
+    margin-bottom:10px;
 }
 
 .login-card p{
     text-align:center;
-    margin-bottom:25px;
     color:#64748b;
+    margin-bottom:25px;
 }
 
 .input-group{
@@ -75,8 +76,8 @@ body{
 .input-group label{
     display:block;
     margin-bottom:6px;
-    font-size:14px;
     font-weight:600;
+    font-size:14px;
 }
 
 .input-group input,
@@ -86,7 +87,6 @@ body{
     border-radius:10px;
     border:1px solid #dbeafe;
     outline:none;
-    transition:0.2s;
     font-size:15px;
 }
 
@@ -110,12 +110,12 @@ header{
 
     padding:20px;
 
-    margin-bottom:20px;
-
     border-radius:20px;
 
-    background:rgba(255,255,255,0.7);
+    background:rgba(255,255,255,0.8);
     backdrop-filter:blur(10px);
+
+    margin-bottom:20px;
 
     box-shadow:
     0 4px 6px rgba(0,0,0,0.05),
@@ -126,7 +126,7 @@ header{
     color:#64748b;
 }
 
-/* ALERTA */
+/* ALERT */
 
 .alert-banner{
     background:var(--danger);
@@ -151,9 +151,9 @@ header{
 button{
     border:none;
     cursor:pointer;
-    transition:0.2s;
     border-radius:10px;
     font-weight:600;
+    transition:0.2s;
 }
 
 button:hover{
@@ -174,27 +174,30 @@ button:hover{
 .btn-approve{
     background:var(--success);
     color:white;
+    padding:10px 15px;
 }
 
 .btn-reject{
     background:var(--danger);
     color:white;
+    padding:10px 15px;
 }
 
 .btn-delete{
     background:#334155;
     color:white;
+    padding:10px 15px;
 }
 
 /* ADMIN */
 
 .admin-panel{
-    background:rgba(255,255,255,0.7);
+    background:rgba(255,255,255,0.8);
     backdrop-filter:blur(10px);
 
-    padding:20px;
-
     border-radius:20px;
+
+    padding:20px;
 
     margin-bottom:20px;
 
@@ -211,8 +214,11 @@ button:hover{
 
 .card{
     background:white;
+
     border-radius:20px;
+
     padding:18px;
+
     margin-bottom:18px;
 
     box-shadow:
@@ -254,9 +260,9 @@ button:hover{
 }
 
 .badge{
+    color:white;
     padding:5px 10px;
     border-radius:20px;
-    color:white;
     font-size:12px;
     font-weight:bold;
     text-transform:uppercase;
@@ -264,8 +270,8 @@ button:hover{
 
 .img-preview{
     width:100%;
-    margin-top:15px;
     border-radius:15px;
+    margin-top:15px;
     border:1px solid #ddd;
     max-height:300px;
     object-fit:cover;
@@ -289,8 +295,6 @@ button:hover{
     font-weight:bold;
 }
 
-/* RESPONSIVO */
-
 @media(max-width:600px){
 
     body{
@@ -304,19 +308,21 @@ button:hover{
     }
 
 }
+
 </style>
 </head>
 
 <body>
 
 <!-- LOGIN -->
+
 <div id="login-screen">
 
     <div class="login-card">
 
         <h1>🏠 CasaArrumada</h1>
 
-        <p>Painel de tarefas domésticas</p>
+        <p>Painel Familiar</p>
 
         <div class="input-group">
             <label>Usuário</label>
@@ -337,6 +343,7 @@ button:hover{
 </div>
 
 <!-- APP -->
+
 <div id="app">
 
     <header>
@@ -357,9 +364,11 @@ button:hover{
     </div>
 
     <!-- ADMIN -->
+
     <div id="admin-area" style="display:none;">
 
-        <!-- CRIAR USUARIO -->
+        <!-- NOVO USUARIO -->
+
         <div class="admin-panel">
 
             <h3>👤 Criar Usuário</h3>
@@ -378,7 +387,8 @@ button:hover{
 
         </div>
 
-        <!-- CRIAR TAREFA -->
+        <!-- NOVA TAREFA -->
+
         <div class="admin-panel">
 
             <h3>➕ Nova Tarefa</h3>
@@ -399,7 +409,8 @@ button:hover{
 
     </div>
 
-    <!-- TAREFAS -->
+    <!-- LISTA -->
+
     <div id="lista-tarefas"></div>
 
 </div>
@@ -407,10 +418,10 @@ button:hover{
 <script>
 
 /* =========================================
-   CONFIG
+   API
 ========================================= */
 
-const IMGBB_API_KEY = '53c1ca251be72623dcdec039f082113b';
+const IMGBB_API_KEY = '3478ec6e4e1ffbc5817c552dc72659fd';
 
 /* =========================================
    DATABASE
@@ -418,7 +429,7 @@ const IMGBB_API_KEY = '53c1ca251be72623dcdec039f082113b';
 
 let db = {
 
-    users: [
+    users:[
 
         {
             id:1,
@@ -430,14 +441,14 @@ let db = {
         {
             id:2,
             username:'Giovana',
-            password:'giovana',
+            password:'123',
             role:'user'
         },
 
         {
             id:3,
             username:'Manuela',
-            password:'manuela',
+            password:'123',
             role:'user'
         }
 
@@ -485,6 +496,7 @@ function init(){
         currentUser = JSON.parse(savedUser);
 
         document.getElementById('login-screen').style.display = 'none';
+
         document.getElementById('app').style.display = 'block';
 
         render();
@@ -497,16 +509,23 @@ function init(){
 
 function login(){
 
-    const username = document.getElementById('user-input').value.trim();
+    const username =
+        document.getElementById('user-input')
+        .value
+        .trim();
 
-    const password = document.getElementById('password-input').value.trim();
+    const password =
+        document.getElementById('password-input')
+        .value
+        .trim();
 
     if(!username || !password){
         return alert('Preencha usuário e senha');
     }
 
     const user = db.users.find(u =>
-        u.username.toLowerCase() === username.toLowerCase() &&
+        u.username.toLowerCase() === username.toLowerCase()
+        &&
         u.password === password
     );
 
@@ -516,9 +535,13 @@ function login(){
 
     currentUser = user;
 
-    localStorage.setItem('currentUser', JSON.stringify(user));
+    localStorage.setItem(
+        'currentUser',
+        JSON.stringify(user)
+    );
 
     document.getElementById('login-screen').style.display = 'none';
+
     document.getElementById('app').style.display = 'block';
 
     render();
@@ -549,25 +572,33 @@ function render(){
     document.getElementById('user-role').innerText =
         isAdmin ? 'Administrador' : 'Usuário';
 
-    const list = document.getElementById('lista-tarefas');
+    const list =
+        document.getElementById('lista-tarefas');
 
-    const adminArea = document.getElementById('admin-area');
+    const adminArea =
+        document.getElementById('admin-area');
 
-    const alertBanner = document.getElementById('alerta-conclusao');
+    const alertBanner =
+        document.getElementById('alerta-conclusao');
 
     list.innerHTML = '';
 
-    adminArea.style.display = isAdmin ? 'block' : 'none';
+    adminArea.style.display =
+        isAdmin ? 'block' : 'none';
 
     if(isAdmin){
         renderUsersSelect();
     }
 
     const myTasks = isAdmin
+
         ? db.tarefas
+
         : db.tarefas.filter(t =>
+
             t.responsavel.toLowerCase() ===
             currentUser.username.toLowerCase()
+
         );
 
     const hasPending = myTasks.some(t =>
@@ -580,8 +611,11 @@ function render(){
         : 'none';
 
     const badgeColors = {
+
         pendente:'#f59e0b',
+
         aguardando:'#4f46e5',
+
         aprovado:'#22c55e'
     };
 
@@ -596,6 +630,7 @@ function render(){
             <div class="card-header">
 
                 <div>
+
                     <div class="card-title">
                         ${task.nome}
                     </div>
@@ -603,9 +638,10 @@ function render(){
                     <small>
                         ${task.responsavel}
                     </small>
+
                 </div>
 
-                <span 
+                <span
                     class="badge"
                     style="background:${badgeColors[task.status]}"
                 >
@@ -621,7 +657,8 @@ function render(){
             <div class="task-actions" id="actions-${task.id}"></div>
         `;
 
-        const actions = card.querySelector(`#actions-${task.id}`);
+        const actions =
+            card.querySelector(`#actions-${task.id}`);
 
         /* USER */
 
@@ -656,7 +693,6 @@ function render(){
                     <button
                         class="btn-approve"
                         onclick="updateStatus(${task.id}, 'aprovado')"
-                        style="padding:10px 15px;"
                     >
                         Aprovar
                     </button>
@@ -664,7 +700,6 @@ function render(){
                     <button
                         class="btn-reject"
                         onclick="updateStatus(${task.id}, 'pendente')"
-                        style="padding:10px 15px;"
                     >
                         Rejeitar
                     </button>
@@ -672,7 +707,6 @@ function render(){
                     <button
                         class="btn-delete"
                         onclick="deleteTask(${task.id})"
-                        style="padding:10px 15px;"
                     >
                         Excluir
                     </button>
@@ -686,7 +720,6 @@ function render(){
                     <button
                         class="btn-delete"
                         onclick="deleteTask(${task.id})"
-                        style="padding:10px 15px;"
                     >
                         Remover
                     </button>
@@ -697,7 +730,6 @@ function render(){
         list.appendChild(card);
 
     });
-
 }
 
 /* =========================================
@@ -721,8 +753,10 @@ function createUser(){
     }
 
     const exists = db.users.find(u =>
+
         u.username.toLowerCase() ===
         username.toLowerCase()
+
     );
 
     if(exists){
@@ -766,6 +800,7 @@ function renderUsersSelect(){
     users.forEach(user => {
 
         select.innerHTML += `
+
             <option value="${user.username}">
                 ${user.username}
             </option>
@@ -850,11 +885,8 @@ async function completeTask(event, id, file){
         return alert('Imagem muito grande');
     }
 
-    if(IMGBB_API_KEY === '53c1ca251be72623dcdec039f082113b'){
-        return alert('Configure sua API Key do ImgBB');
-    }
-
-    const btn = event.target.parentElement;
+    const btn =
+        event.target.parentElement;
 
     btn.innerText = 'Enviando... ⏳';
 
@@ -867,11 +899,14 @@ async function completeTask(event, id, file){
     try{
 
         const res = await fetch(
+
             `https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`,
+
             {
                 method:'POST',
                 body:formData
             }
+
         );
 
         const data = await res.json();
@@ -894,6 +929,8 @@ async function completeTask(event, id, file){
 
     }catch(err){
 
+        console.error(err);
+
         alert('Erro ao enviar imagem');
 
         render();
@@ -907,8 +944,11 @@ async function completeTask(event, id, file){
 function saveAndRender(){
 
     localStorage.setItem(
+
         'casa_arrumada_db',
+
         JSON.stringify(db)
+
     );
 
     render();
