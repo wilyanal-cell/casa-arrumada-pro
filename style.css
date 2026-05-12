@@ -1,26 +1,207 @@
-body {
-    font-family: Arial;
-    background: linear-gradient(135deg,#a5b4fc,#fbcfe8);
-    text-align:center;
-    padding:20px;
+
+/* =========================
+   BASE
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
 }
 
-input, select, button {
-    padding:10px;
-    margin:5px;
-    border-radius:10px;
-    border:none;
+body {
+    background: linear-gradient(135deg, #a78bfa, #22d3ee);
+    min-height: 100vh;
+    padding: 12px;
+    color: #1e293b;
 }
+
+/* =========================
+   LOGIN
+========================= */
+
+#login {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+    text-align: center;
+}
+
+#login h1 {
+    font-size: 2.2rem;
+    color: white;
+    text-shadow: 0 3px 10px rgba(0,0,0,0.3);
+}
+
+#login input {
+    padding: 14px;
+    border-radius: 12px;
+    border: none;
+    font-size: 1rem;
+    outline: none;
+}
+
+#login button {
+    padding: 14px;
+    border-radius: 12px;
+    border: none;
+    background: #facc15;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+/* =========================
+   APP CONTAINER
+========================= */
+
+#app {
+    display: none;
+    max-width: 520px;
+    margin: auto;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+    background: white;
+    padding: 14px;
+    border-radius: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+
+header h2 {
+    font-size: 1.1rem;
+}
+
+/* =========================
+   ADMIN PANEL
+========================= */
+
+#adminPanel {
+    background: white;
+    padding: 14px;
+    border-radius: 16px;
+    margin-bottom: 14px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#adminPanel input,
+#adminPanel select {
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+}
+
+/* =========================
+   BOTÕES
+========================= */
 
 button {
-    background:#4f46e5;
-    color:white;
-    cursor:pointer;
+    border: none;
+    border-radius: 12px;
+    padding: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+button:hover {
+    transform: scale(1.02);
+}
+
+.btn-primary {
+    background: #4f46e5;
+    color: white;
+}
+
+.btn-danger {
+    background: #ef4444;
+    color: white;
+}
+
+/* =========================
+   CARDS (TAREFAS)
+========================= */
+
+#tasks {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .card {
-    background:white;
-    padding:15px;
-    margin:10px;
-    border-radius:15px;
+    background: white;
+    padding: 14px;
+    border-radius: 18px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    border-left: 6px solid #4f46e5;
+    animation: pop 0.2s ease-in-out;
+}
+
+.card h3 {
+    font-size: 1rem;
+    margin-bottom: 6px;
+}
+
+.card p {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* =========================
+   ANIMAÇÃO
+========================= */
+
+@keyframes pop {
+    from {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* =========================
+   USUÁRIOS
+========================= */
+
+#userList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#userList .card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* =========================
+   AJUSTE MOBILE FORÇADO
+========================= */
+
+@media (min-width: 768px) {
+    body {
+        padding: 30px;
+    }
+
+    #app {
+        max-width: 600px;
+    }
 }
