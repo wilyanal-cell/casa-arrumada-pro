@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Casa Arrumada Pro</title>
+
+<style>
+:root{
+    --primary:#4f46e5;
+    --secondary:#6366f1;
+    --success:#22c55e;
+    --warning:#f59e0b;
+    --danger:#ef4444;
+    --dark:#1e293b;
+    --light:#f8fafc;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#eef2ff,#f8fafc);
+    min-height:100vh;
+    color:var(--dark);
+    padding:20px;
+}
+
+/* LOGIN */
+
+#login-screen{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
+
+.login-card{
+    width:100%;
+    max-width:380px;
+
+    background:rgba(255,255,255,0.75);
+    backdrop-filter:blur(12px);
+
+    border-radius:25px;
+
+    padding:30px;
+
+    box-shadow:
+    0 10px 25px rgba(0,0,0,0.08),
+    0 4px 10px rgba(0,0,0,0.03);
+}
+
+.login-card h1{
+    text-align:center;
+    margin-bottom:10px;
+    color:var(--primary);
+}
+
+.login-card p{
+    text-align:center;
+    margin-bottom:25px;
+    color:#64748b;
+}
+
+.input-group{
+    margin-bottom:15px;
+}
+
+.input-group label{
+    display:block;
+    margin-bottom:6px;
+    font-size:14px;
+    font-weight:600;
+}
+
+.input-group input,
+.input-group select{
+    width:100%;
+    padding:12px;
+    border-radius:10px;
+    border:1px solid #dbeafe;
+    outline:none;
+    transition:0.2s;
+    font-size:15px;
+}
+
+.input-group input:focus,
+.input-group select:focus{
+    border-color:var(--primary);
+}
+
+/* APP */
+
+#app{
+    display:none;
+    max-width:700px;
+    margin:0 auto;
+}
+
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:20px;
+
+    margin-bottom:20px;
+
+    border-radius:20px;
+
+    background:rgba(255,255,255,0.7);
+    backdrop-filter:blur(10px);
+
+    box-shadow:
+    0 4px 6px rgba(0,0,0,0.05),
+    0 10px 15px rgba(0,0,0,0.03);
+}
+
+.header-info small{
+    color:#64748b;
+}
+
+/* ALERTA */
+
+.alert-banner{
+    background:var(--danger);
+    color:white;
+    padding:15px;
+    border-radius:15px;
+    margin-bottom:20px;
+    text-align:center;
+    font-weight:bold;
+    animation:pulse 2s infinite;
+    display:none;
+}
+
+@keyframes pulse{
+    0%{opacity:1;}
+    50%{opacity:0.7;}
+    100%{opacity:1;}
+}
+
+/* BUTTONS */
+
+button{
+    border:none;
+    cursor:pointer;
+    transition:0.2s;
+    border-radius:10px;
+    font-weight:600;
+}
+
+button:hover{
+    transform:translateY(-1px);
+}
+
+.btn-primary{
+    width:100%;
+    padding:12px;
+    background:var(--primary);
+    color:white;
+}
+
+.btn-primary:hover{
+    background:var(--secondary);
+}
+
+.btn-approve{
+    background:var(--success);
+    color:white;
+}
+
+.btn-reject{
+    background:var(--danger);
+    color:white;
+}
+
+.btn-delete{
+    background:#334155;
+    color:white;
+}
+
+/* ADMIN */
+
+.admin-panel{
+    background:rgba(255,255,255,0.7);
+    backdrop-filter:blur(10px);
+
+    padding:20px;
+
+    border-radius:20px;
+
+    margin-bottom:20px;
+
+    box-shadow:
+    0 4px 6px rgba(0,0,0,0.05),
+    0 10px 15px rgba(0,0,0,0.03);
+}
+
+.admin-panel h3{
+    margin-bottom:15px;
+}
+
+/* TASKS */
+
+.card{
+    background:white;
+    border-radius:20px;
+    padding:18px;
+    margin-bottom:18px;
+
+    box-shadow:
+    0 4px 6px rgba(0,0,0,0.05),
+    0 10px 15px rgba(0,0,0,0.03);
+
+    border-left:8px solid #cbd5e1;
+
+    transition:0.2s;
+}
+
+.card:hover{
+    transform:translateY(-2px);
+}
+
+.card.pendente{
+    border-left-color:var(--warning);
+}
+
+.card.aguardando{
+    border-left-color:var(--primary);
+}
+
+.card.aprovado{
+    border-left-color:var(--success);
+    opacity:0.9;
+}
+
+.card-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:10px;
+}
+
+.card-title{
+    font-size:18px;
+    font-weight:bold;
+}
+
+.badge{
+    padding:5px 10px;
+    border-radius:20px;
+    color:white;
+    font-size:12px;
+    font-weight:bold;
+    text-transform:uppercase;
+}
+
+.img-preview{
+    width:100%;
+    margin-top:15px;
+    border-radius:15px;
+    border:1px solid #ddd;
+    max-height:300px;
+    object-fit:cover;
+}
+
+.task-actions{
+    margin-top:15px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+.upload-label{
+    width:100%;
+    text-align:center;
+    background:var(--primary);
+    color:white;
+    padding:12px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+/* RESPONSIVO */
+
+@media(max-width:600px){
+
+    body{
+        padding:12px;
+    }
+
+    header{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:10px;
+    }
+
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+
+    <div class="login-card">
+
+        <h1>🏠 CasaArrumada</h1>
+
+        <p>Painel de tarefas domésticas</p>
+
+        <div class="input-group">
+            <label>Usuário</label>
+            <input type="text" id="user-input" placeholder="Digite o usuário">
+        </div>
+
+        <div class="input-group">
+            <label>Senha</label>
+            <input type="password" id="password-input" placeholder="Digite a senha">
+        </div>
+
+        <button class="btn-primary" onclick="login()">
+            Entrar
+        </button>
+
+    </div>
+
+</div>
+
+<!-- APP -->
+<div id="app">
+
+    <header>
+
+        <div class="header-info">
+            <small id="user-role"></small>
+            <h2 id="user-display"></h2>
+        </div>
+
+        <button onclick="logout()" style="padding:10px 15px;">
+            Sair
+        </button>
+
+    </header>
+
+    <div id="alerta-conclusao" class="alert-banner">
+        ⚠️ EXISTEM TAREFAS PENDENTES!
+    </div>
+
+    <!-- ADMIN -->
+    <div id="admin-area" style="display:none;">
+
+        <!-- CRIAR USUARIO -->
+        <div class="admin-panel">
+
+            <h3>👤 Criar Usuário</h3>
+
+            <div class="input-group">
+                <input type="text" id="new-user-name" placeholder="Nome do usuário">
+            </div>
+
+            <div class="input-group">
+                <input type="password" id="new-user-password" placeholder="Senha">
+            </div>
+
+            <button class="btn-primary" onclick="createUser()">
+                Criar Usuário
+            </button>
+
+        </div>
+
+        <!-- CRIAR TAREFA -->
+        <div class="admin-panel">
+
+            <h3>➕ Nova Tarefa</h3>
+
+            <div class="input-group">
+                <input type="text" id="new-task-name" placeholder="Nome da tarefa">
+            </div>
+
+            <div class="input-group">
+                <select id="new-task-user"></select>
+            </div>
+
+            <button class="btn-primary" onclick="addTask()">
+                Criar Tarefa
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- TAREFAS -->
+    <div id="lista-tarefas"></div>
+
+</div>
+
+<script>
+
+/* =========================================
+   CONFIG
+========================================= */
+
+const IMGBB_API_KEY = '53c1ca251be72623dcdec039f082113b';
+
+/* =========================================
+   DATABASE
+========================================= */
+
+let db = {
+
+    users: [
+
+        {
+            id:1,
+            username:'admin',
+            password:'admin',
+            role:'admin'
+        },
+
+        {
+            id:2,
+            username:'Giovana',
+            password:'giovana',
+            role:'user'
+        },
+
+        {
+            id:3,
+            username:'Manuela',
+            password:'manuela',
+            role:'user'
+        }
+
+    ],
+
+    tarefas:[
+
+        {
+            id:1,
+            nome:'Lavar a Louça',
+            responsavel:'Giovana',
+            status:'pendente',
+            foto:null
+        },
+
+        {
+            id:2,
+            nome:'Arrumar o Quarto',
+            responsavel:'Manuela',
+            status:'pendente',
+            foto:null
+        }
+
+    ]
+};
+
+let currentUser = null;
+
+/* =========================================
+   INIT
+========================================= */
+
+function init(){
+
+    const savedDB = localStorage.getItem('casa_arrumada_db');
+
+    if(savedDB){
+        db = JSON.parse(savedDB);
+    }
+
+    const savedUser = localStorage.getItem('currentUser');
+
+    if(savedUser){
+
+        currentUser = JSON.parse(savedUser);
+
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('app').style.display = 'block';
+
+        render();
+    }
+}
+
+/* =========================================
+   LOGIN
+========================================= */
+
+function login(){
+
+    const username = document.getElementById('user-input').value.trim();
+
+    const password = document.getElementById('password-input').value.trim();
+
+    if(!username || !password){
+        return alert('Preencha usuário e senha');
+    }
+
+    const user = db.users.find(u =>
+        u.username.toLowerCase() === username.toLowerCase() &&
+        u.password === password
+    );
+
+    if(!user){
+        return alert('Usuário ou senha inválidos');
+    }
+
+    currentUser = user;
+
+    localStorage.setItem('currentUser', JSON.stringify(user));
+
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+
+    render();
+}
+
+/* =========================================
+   LOGOUT
+========================================= */
+
+function logout(){
+
+    localStorage.removeItem('currentUser');
+
+    location.reload();
+}
+
+/* =========================================
+   RENDER
+========================================= */
+
+function render(){
+
+    const isAdmin = currentUser.role === 'admin';
+
+    document.getElementById('user-display').innerText =
+        currentUser.username;
+
+    document.getElementById('user-role').innerText =
+        isAdmin ? 'Administrador' : 'Usuário';
+
+    const list = document.getElementById('lista-tarefas');
+
+    const adminArea = document.getElementById('admin-area');
+
+    const alertBanner = document.getElementById('alerta-conclusao');
+
+    list.innerHTML = '';
+
+    adminArea.style.display = isAdmin ? 'block' : 'none';
+
+    if(isAdmin){
+        renderUsersSelect();
+    }
+
+    const myTasks = isAdmin
+        ? db.tarefas
+        : db.tarefas.filter(t =>
+            t.responsavel.toLowerCase() ===
+            currentUser.username.toLowerCase()
+        );
+
+    const hasPending = myTasks.some(t =>
+        t.status === 'pendente'
+    );
+
+    alertBanner.style.display =
+        (!isAdmin && hasPending)
+        ? 'block'
+        : 'none';
+
+    const badgeColors = {
+        pendente:'#f59e0b',
+        aguardando:'#4f46e5',
+        aprovado:'#22c55e'
+    };
+
+    myTasks.forEach(task => {
+
+        const card = document.createElement('div');
+
+        card.className = `card ${task.status}`;
+
+        card.innerHTML = `
+
+            <div class="card-header">
+
+                <div>
+                    <div class="card-title">
+                        ${task.nome}
+                    </div>
+
+                    <small>
+                        ${task.responsavel}
+                    </small>
+                </div>
+
+                <span 
+                    class="badge"
+                    style="background:${badgeColors[task.status]}"
+                >
+                    ${task.status}
+                </span>
+
+            </div>
+
+            ${task.foto ? `
+                <img src="${task.foto}" class="img-preview">
+            ` : ''}
+
+            <div class="task-actions" id="actions-${task.id}"></div>
+        `;
+
+        const actions = card.querySelector(`#actions-${task.id}`);
+
+        /* USER */
+
+        if(!isAdmin && task.status === 'pendente'){
+
+            actions.innerHTML = `
+
+                <label class="upload-label">
+
+                    📷 Enviar Foto e Concluir
+
+                    <input
+                        type="file"
+                        accept="image/*"
+                        capture="camera"
+                        style="display:none"
+                        onchange="completeTask(event, ${task.id}, this.files[0])"
+                    >
+
+                </label>
+            `;
+        }
+
+        /* ADMIN */
+
+        if(isAdmin){
+
+            if(task.status === 'aguardando'){
+
+                actions.innerHTML = `
+
+                    <button
+                        class="btn-approve"
+                        onclick="updateStatus(${task.id}, 'aprovado')"
+                        style="padding:10px 15px;"
+                    >
+                        Aprovar
+                    </button>
+
+                    <button
+                        class="btn-reject"
+                        onclick="updateStatus(${task.id}, 'pendente')"
+                        style="padding:10px 15px;"
+                    >
+                        Rejeitar
+                    </button>
+
+                    <button
+                        class="btn-delete"
+                        onclick="deleteTask(${task.id})"
+                        style="padding:10px 15px;"
+                    >
+                        Excluir
+                    </button>
+                `;
+            }
+
+            else{
+
+                actions.innerHTML = `
+
+                    <button
+                        class="btn-delete"
+                        onclick="deleteTask(${task.id})"
+                        style="padding:10px 15px;"
+                    >
+                        Remover
+                    </button>
+                `;
+            }
+        }
+
+        list.appendChild(card);
+
+    });
+
+}
+
+/* =========================================
+   USERS
+========================================= */
+
+function createUser(){
+
+    const username =
+        document.getElementById('new-user-name')
+        .value
+        .trim();
+
+    const password =
+        document.getElementById('new-user-password')
+        .value
+        .trim();
+
+    if(!username || !password){
+        return alert('Preencha todos os campos');
+    }
+
+    const exists = db.users.find(u =>
+        u.username.toLowerCase() ===
+        username.toLowerCase()
+    );
+
+    if(exists){
+        return alert('Usuário já existe');
+    }
+
+    db.users.push({
+
+        id:Date.now(),
+
+        username,
+
+        password,
+
+        role:'user'
+    });
+
+    document.getElementById('new-user-name').value = '';
+
+    document.getElementById('new-user-password').value = '';
+
+    saveAndRender();
+
+    alert('Usuário criado!');
+}
+
+/* =========================================
+   USERS SELECT
+========================================= */
+
+function renderUsersSelect(){
+
+    const select =
+        document.getElementById('new-task-user');
+
+    const users =
+        db.users.filter(u => u.role === 'user');
+
+    select.innerHTML = '';
+
+    users.forEach(user => {
+
+        select.innerHTML += `
+            <option value="${user.username}">
+                ${user.username}
+            </option>
+        `;
+    });
+}
+
+/* =========================================
+   TASKS
+========================================= */
+
+function addTask(){
+
+    const name =
+        document.getElementById('new-task-name')
+        .value
+        .trim();
+
+    const user =
+        document.getElementById('new-task-user')
+        .value;
+
+    if(!name){
+        return alert('Digite o nome da tarefa');
+    }
+
+    db.tarefas.push({
+
+        id:Date.now(),
+
+        nome:name,
+
+        responsavel:user,
+
+        status:'pendente',
+
+        foto:null
+    });
+
+    document.getElementById('new-task-name').value = '';
+
+    saveAndRender();
+}
+
+function deleteTask(id){
+
+    db.tarefas =
+        db.tarefas.filter(t => t.id !== id);
+
+    saveAndRender();
+}
+
+function updateStatus(id, status){
+
+    const task =
+        db.tarefas.find(t => t.id === id);
+
+    if(!task) return;
+
+    task.status = status;
+
+    if(status === 'pendente'){
+        task.foto = null;
+    }
+
+    saveAndRender();
+}
+
+/* =========================================
+   COMPLETE TASK
+========================================= */
+
+async function completeTask(event, id, file){
+
+    if(!file) return;
+
+    if(!file.type.startsWith('image/')){
+        return alert('Arquivo inválido');
+    }
+
+    if(file.size > 5 * 1024 * 1024){
+        return alert('Imagem muito grande');
+    }
+
+    if(IMGBB_API_KEY === '53c1ca251be72623dcdec039f082113b'){
+        return alert('Configure sua API Key do ImgBB');
+    }
+
+    const btn = event.target.parentElement;
+
+    btn.innerText = 'Enviando... ⏳';
+
+    btn.style.opacity = '0.5';
+
+    const formData = new FormData();
+
+    formData.append('image', file);
+
+    try{
+
+        const res = await fetch(
+            `https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`,
+            {
+                method:'POST',
+                body:formData
+            }
+        );
+
+        const data = await res.json();
+
+        if(data.success){
+
+            const task =
+                db.tarefas.find(t => t.id === id);
+
+            task.foto = data.data.url;
+
+            task.status = 'aguardando';
+
+            saveAndRender();
+        }
+
+        else{
+            throw new Error();
+        }
+
+    }catch(err){
+
+        alert('Erro ao enviar imagem');
+
+        render();
+    }
+}
+
+/* =========================================
+   SAVE
+========================================= */
+
+function saveAndRender(){
+
+    localStorage.setItem(
+        'casa_arrumada_db',
+        JSON.stringify(db)
+    );
+
+    render();
+}
+
+/* =========================================
+   START
+========================================= */
+
+init();
+
+</script>
+
+</body>
+</html>
