@@ -1,0 +1,10 @@
+{
+  "users": [
+    { "username": "admin", "password": "admin", "role": "admin" },
+    { "username": "Giovana", "password": "123", "role": "user" },
+    { "username": "Manuela", "password": "123", "role": "user" }
+  ],
+  "tasks": [
+    { "id": 1, "name": "Arrumar quarto 🛏️", "user": "Giovana", "status": "pendente", "photo": null }
+  ]
+}
